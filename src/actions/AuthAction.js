@@ -16,6 +16,13 @@ export const emailChanged = (text) => {
     };
 };
 
+/* var emailChanged = exports.emailChanged = function emailChanged(text) {
+    return {
+        type: EMAIL_CHANGED,
+        payload: text
+    };
+}; */
+
 export const passwordChanged = (password) => {
     return {
         type: PASSWORD_CHANGED,
@@ -38,6 +45,27 @@ export const loginUser = ({ email, password, navigation }) => {
         });
     }
 };
+
+/* var loginUser = exports.loginUser = function loginUser(_ref) {
+    var email = _ref.email,
+        password = _ref.password,
+        navigation = _ref.navigation;
+
+    return function (dispatch) {
+        dispatch({ type: LOGIN_USER });
+
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+            return loginUserSuccess(dispatch, user, navigation);
+        }).catch(function (error) {
+            console.log('error: ' + error);
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+                return loginUserSuccess(dispatch, user, navigation);
+            }).catch(function () {
+                return loginUserFail(dispatch);
+            });
+        });
+    };
+}; */
 
 const loginUserFail = (dispatch) => {
     dispatch({ type: LOGIN_USER_FAIL });

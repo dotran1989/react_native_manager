@@ -5,6 +5,11 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
+    static navigationOptions = ({ navigation }) => {
+        let headerTitle = 'Login';
+
+        return { headerTitle };
+    };
 
     onEmailChange(text) {
         this.props.emailChanged(text);
@@ -26,7 +31,8 @@ class LoginForm extends Component {
         }
 
         return (
-            <Button onPress={this.onButtonPress.bind(this)}>
+            // () => this.onButtonPress()
+            <Button onPress={this.onButtonPress.bind(this)}> 
                 Log In
             </Button>
         );
@@ -49,6 +55,7 @@ class LoginForm extends Component {
                         placeholder="password"
                         onChangeText={this.onPasswordChange.bind(this)}
                         value={this.props.password}
+                        secureTextEntry={true}
                     />
                 </CardSection>
 
