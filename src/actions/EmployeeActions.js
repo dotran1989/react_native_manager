@@ -6,6 +6,13 @@ import {
     EMPLOYEE_SAVE_SUCCESS
 } from './types';
 
+export const employeeUpdate = ({ prop, value }) => {
+    return {
+        type: EMPLOYEE_UPDATE,
+        payload: { prop, value }
+    }
+};
+
 export const employeeFetch = () => {
     const { currentUser } = firebase.auth();
 

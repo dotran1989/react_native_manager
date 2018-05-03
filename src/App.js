@@ -8,6 +8,7 @@ import { StackNavigator } from 'react-navigation';
 import reducers from './reducers';
 import LoginForm from './components/LoginForm';
 import EmployeeList from './components/EmployeeList';
+import EmployeeCreate from './components/EmployeeCreate';
 
 class App extends Component {
 
@@ -31,7 +32,12 @@ class App extends Component {
             },
             employeeList: {
                 screen: EmployeeList
-            }
+            },
+            employeeCreate: {
+                screen: EmployeeCreate
+            }},
+        {
+            initialRouteName: 'login'
         });
 
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
