@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Card, CardSection, Button } from './common';
+import EmployeeForm from './EmployeeForm';
 
 class EmployeeCreate extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -11,7 +12,15 @@ class EmployeeCreate extends Component {
 
     render() {
         return (
-            <Text>Employee Create</Text>
+            <View>
+                <EmployeeForm />
+                <CardSection>
+                    <Button>
+                        Create
+                    </Button>
+                </CardSection>
+                <Text>Employee Create</Text>
+            </View>
         );
     }
 };
