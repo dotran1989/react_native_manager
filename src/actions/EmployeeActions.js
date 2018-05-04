@@ -19,10 +19,13 @@ export const employeeCreate = ({ name, phone, shift, navigation }) => {
     const { currentUser } = firebase.auth();
     // console.log(`firebase.auth() ${JSON.stringify(firebase.auth())}`);
 
-    return () => {
+    return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/employees`)
         .push({ name, phone, shift })
-        .then(() => navigation.goBack());
+        .then( () => {
+            dispatch({ type: EMPLOYEE_CREATE })
+            navigation.goBack();
+        });
     };
 };
 
