@@ -5,7 +5,7 @@ import {
 const INITIAL_STATE = {
     name: '',
     phone: '',
-    shift: ''
+    shift: '' // shift: 'Monday' -> default value
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,3 +19,7 @@ export default (state = INITIAL_STATE, action) => {
             return state;
     }
 };
+
+// action: {"type":"employee_update","payload":{"prop":"name","value":"Jane"}}
+// action: {"type":"employee_update","payload":{"prop":"phone","value":"555555"}}
+// action: {"type":"employee_update","payload":{"prop":"shift","value":"Wednesday"}}

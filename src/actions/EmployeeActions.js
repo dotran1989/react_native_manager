@@ -13,6 +13,10 @@ export const employeeUpdate = ({ prop, value }) => {
     };
 };
 
+export const employeeCreate = ({ name, phone, shift }) => {
+    console.log(name, phone, shift);
+};
+
 export const employeeFetch = () => {
     const { currentUser } = firebase.auth();
 
