@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ListView, FlatList, View, Text, Platform } from 'react-native';
 import Button from 'react-native-button';
 import * as actions from '../actions';
+import ListItem from './ListItem';
 
 import EmployeeCreate from './EmployeeCreate';
 
@@ -31,8 +32,6 @@ class EmployeeList extends Component {
 
     constructor(props) {
         super(props);
-
-        // this.employeeFetch = this.employeeFetch.bind(this);
     }
 
     componentWillMount() {
@@ -58,23 +57,18 @@ class EmployeeList extends Component {
         this.dataSource = ds.cloneWithRows(employees);
     }
 
-    // _renderRow(employee) {
-    //     return <ListItem employee={employee} />;
-    // }
+    _renderRow(employee) {
+        return <ListItem employee={employee} />;
+    }
 
     render() {
+        console.log(this.props);
         return (
-            /* <ListView 
+            <ListView 
                 enableEmptySections
                 dataSource={this.dataSource}
                 renderRow={this._renderRow}
-            /> */
-            <View>
-                <Text>AAAAA</Text>
-                <Text>AAAAA</Text>
-                <Text>AAAAA</Text>
-                <Text>AAAAA</Text>
-            </View>
+            />
         );
     }
 
@@ -111,15 +105,16 @@ const styles = {
     }
 };
 
-/* const mapStateToProps = state => {
-    const employees = _.map(state.employees, (val, uid) => {
-        return {... val, uid };
+const mapStateToProps = state => {
+    const employees = _.map(state.employees, (val, uid) => { // convert object 'state.employees' to array
+        console.log(`val: ${JSON.stringify(val)} + id: ${JSON.stringify(uid)}`);
+        return {... val, uid }; // { shift: 'Monday', name: 's', id: '1j2ksj'}
     });
-    return { employees };
-}; */
+    console.log(`employees: ${JSON.stringify(employees)}`);
+    return { employees }; // {employees: employees} not 'return employees'
+};
 
-// export default connect(mapStateToProps, { employeeFetch }) (EmployeeList);
-export default connect(null, actions)(EmployeeList);
+export default connect(mapStateToProps, actions)(EmployeeList);
 
 /* Based off your explanation in this video, can you confirm I understand this correctly and the following statement is accurate?
 
@@ -130,3 +125,95 @@ But when we do eventually get the employees, componentWillReceiveProps is called
 When the user leaves this page and comes back, componentWillMount is called again, 
 and this time this.props.employees WILL be defined within componentWillMount (because the first async call completed and updated the Redux store). 
 Thus, we need to call createDataStore within both lifecycle methods to handle when 'employees' is actually defined. Thanks! */
+
+/*  state.employees:
+
+action:{  
+    "type":"employee_fetch_success",
+    "payload":{  
+       "-Kv2UCkDZBocFgYC4Gx7":{  
+          "name":"Peter",
+          "phone":7777,
+          "shift":"Monday"
+       },
+       "-Kv2UCkDZBocFgYC4Gx8":{  
+          "name":"Jane",
+          "phone":5555,
+          "shift":"Friday"
+       },
+       "-LBdU-y_5SyMiHBqyDWG":{  
+          "name":"aaa",
+          "phone":"111111",
+          "shift":"Thursday"
+       }
+    }
+ } */
+
+ /* 1. First render
+ employees: []
+componentWillMount
+this.props: {"navigation":{"state":{"routeName":"employeeList","key":"id-1525422338985-1"}},"employees":[]}
+ 
+ 2. Dispatch action
+
+ action:{  
+   "type":"employee_fetch_success",
+   "payload":{  
+      "-Kv2UCkDZBocFgYC4Gx7":{  
+         "name":"Peter",
+         "phone":7777,
+         "shift":"Monday"
+      },
+      "-Kv2UCkDZBocFgYC4Gx8":{  
+         "name":"Jane",
+         "phone":5555,
+         "shift":"Friday"
+      },
+      "-LBdU-y_5SyMiHBqyDWG":{  
+         "name":"aaa",
+         "phone":"111111",
+         "shift":"Thursday"
+      }
+   }
+}
+
+3. Re-render component
+
+val: {"name":"Peter","phone":7777,"shift":"Monday"} + id: "-Kv2UCkDZBocFgYC4Gx7"
+val: {"name":"Jane","phone":5555,"shift":"Friday"} + id: "-Kv2UCkDZBocFgYC4Gx8"
+val: {"name":"aaa","phone":"111111","shift":"Thursday"} + id: "-LBdU-y_5SyMiHBqyDWG"
+
+employees: [{"name":"Peter","phone":7777,"shift":"Monday","uid":"-Kv2UCkDZBocFgYC4Gx7"},{"name":"Jane","phone":5555,"shift":"Friday","uid":"-Kv2UCkDZBocFgYC4Gx8"},{"name":"aaa","phone":"111111","shift":"Thursday","uid":"-LBdU-y_5SyMiHBqyDWG"}]
+
+componentWillReceiveProps
+{  
+   "navigation":{  
+      "state":{  
+         "routeName":"employeeList",
+         "key":"id-1525422338985-1"
+      }
+   },
+   "employees":[  
+      {  
+         "name":"Peter",
+         "phone":7777,
+         "shift":"Monday",
+         "uid":"-Kv2UCkDZBocFgYC4Gx7"
+      },
+      {  
+         "name":"Jane",
+         "phone":5555,
+         "shift":"Friday",
+         "uid":"-Kv2UCkDZBocFgYC4Gx8"
+      },
+      {  
+         "name":"aaa",
+         "phone":"111111",
+         "shift":"Thursday",
+         "uid":"-LBdU-y_5SyMiHBqyDWG"
+      }
+   ]
+}
+
+
+ */
