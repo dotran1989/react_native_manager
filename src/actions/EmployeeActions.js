@@ -29,6 +29,8 @@ export const employeeCreate = ({ name, phone, shift, navigation }) => {
     };
 };
 
+// when we create new employee, firebase automatically detect we added a new employee
+// redux will automatically run and dispatch action 'EMPLOYEE_FETCH_SUCCESS' with new data 'snapshot.val()'
 export const employeeFetch = () => {
     const { currentUser } = firebase.auth();
 
@@ -76,5 +78,29 @@ export const employeeFetch = () => {
        "redirectEventId":null,
        "lastLoginAt":"1525406196000",
        "createdAt":"1502772795000"
+    }
+ } */
+
+
+/*  Fetch data - employeeFetch:
+
+action:{  
+    "type":"employee_fetch_success",
+    "payload":{  
+       "-Kv2UCkDZBocFgYC4Gx7":{  
+          "name":"Peter",
+          "phone":7777,
+          "shift":"Monday"
+       },
+       "-Kv2UCkDZBocFgYC4Gx8":{  
+          "name":"Jane",
+          "phone":5555,
+          "shift":"Friday"
+       },
+       "-LBdU-y_5SyMiHBqyDWG":{  
+          "name":"aaa",
+          "phone":"111111",
+          "shift":"Thursday"
+       }
     }
  } */

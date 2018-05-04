@@ -35,24 +35,28 @@ class EmployeeList extends Component {
         // this.employeeFetch = this.employeeFetch.bind(this);
     }
 
-    // componentWillMount() {
-    //     // this.props.employeeFetch();
+    componentWillMount() {
+        console.log(`componentWillMount`);
+        this.props.employeeFetch();
 
-    //     console.log(`this.props: ${JSON.stringify(this.props)}`);
-    //     this._createDataSource(this.props);
-    // }
+        console.log(`this.props: ${JSON.stringify(this.props)}`);
+        this._createDataSource(this.props);
+    }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this._createDataSource(nextProps);
-    // }
+    componentWillReceiveProps(nextProps) {
+        console.log(`componentWillReceiveProps`);
+        console.log(`this.nextProps: ${JSON.stringify(nextProps)}`);
+        this._createDataSource(nextProps);
+    }
 
-    // _createDataSource({ employees }) {
-    //     const ds = new ListView.DataSource({
-    //         rowHasChanged: (r1, r2) => r1 !== r2
-    //     });
+    // r1 & r2 are two rows that are being compared, the old one and the new one. If they are not the same the rowHasChanged.
+    _createDataSource({ employees }) {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
 
-    //     this.dataSource = ds.cloneWithRows(employees);
-    // }
+        this.dataSource = ds.cloneWithRows(employees);
+    }
 
     // _renderRow(employee) {
     //     return <ListItem employee={employee} />;
@@ -115,4 +119,14 @@ const styles = {
 }; */
 
 // export default connect(mapStateToProps, { employeeFetch }) (EmployeeList);
-export default EmployeeList;
+export default connect(null, actions)(EmployeeList);
+
+/* Based off your explanation in this video, can you confirm I understand this correctly and the following statement is accurate?
+
+we use componentWillReceiveProps to handle the FIRST time we enter this page, aka the first time we ever call 'employeesFetch' in componentWillMount -> this is asynchronous,
+so this.props.employees will NOT yet be defined in componentWillMount.
+But when we do eventually get the employees, componentWillReceiveProps is called and this.props.employees is defined and we are good. 
+
+When the user leaves this page and comes back, componentWillMount is called again, 
+and this time this.props.employees WILL be defined within componentWillMount (because the first async call completed and updated the Redux store). 
+Thus, we need to call createDataStore within both lifecycle methods to handle when 'employees' is actually defined. Thanks! */

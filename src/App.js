@@ -4,11 +4,21 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 import { StackNavigator } from 'react-navigation';
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
 
 import reducers from './reducers';
 import LoginForm from './components/LoginForm';
 import EmployeeList from './components/EmployeeList';
 import EmployeeCreate from './components/EmployeeCreate';
+
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+ if (message.indexOf('Setting a timer') <= -1) {
+ _console.warn(message);
+ }
+};
 
 class App extends Component {
 
