@@ -13,14 +13,17 @@ export const employeeUpdate = ({ prop, value }) => {
     };
 };
 
-export const employeeCreate = ({ name, phone, shift }) => {
+export const employeeCreate = ({ name, phone, shift, navigation }) => {
     console.log(name, phone, shift);
 
     const { currentUser } = firebase.auth();
     // console.log(`firebase.auth() ${JSON.stringify(firebase.auth())}`);
 
-    firebase.database().ref(`/users/${currentUser.uid}/employees`)
-        .push({ name, phone, shift });
+    return () => {
+        firebase.database().ref(`/users/${currentUser.uid}/employees`)
+        .push({ name, phone, shift })
+        .then(() => navigation.goBack());
+    };
 };
 
 export const employeeFetch = () => {

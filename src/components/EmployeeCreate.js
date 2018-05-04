@@ -13,9 +13,9 @@ class EmployeeCreate extends Component {
     }
 
     _onButtonPress() {
-        const { name, phone, shift } = this.props;
+        const { name, phone, shift, navigation } = this.props;
 
-        this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+        this.props.employeeCreate({ name, phone, shift: shift || 'Monday', navigation });
     }
 
     render() {
