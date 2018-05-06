@@ -15,6 +15,7 @@ class EmployeeEdit extends Component {
         return { headerTitle };
     };
 
+    // call action creator to update and fill value in EmployeeForm
     componentWillMount() {
         _.each(this.props.navigation.state.params, (value, prop) => {
             this.props.employeeUpdate({ prop, value });
@@ -23,7 +24,8 @@ class EmployeeEdit extends Component {
 
     _onButtonPress() {
         const { name, phone, shift } = this.props;
-        console.log(name, phone ,shift);
+
+        this.props.employeeSave({ name, phone, shift, uid: this.props.navigation.state.params.uid });
     }
 
     render() {
