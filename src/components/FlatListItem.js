@@ -11,7 +11,7 @@ class FlatListItem extends Component {
             <TouchableWithoutFeedback 
                 onPress={() => {
                     // alert(`item: ${JSON.stringify(this.props)}`);
-                    this.props.navigation.navigate('employeeCreate', this.props.item);
+                    this.props.navigation.navigate('employeeEdit', this.props.item);
                 }}
             >
                 <View>

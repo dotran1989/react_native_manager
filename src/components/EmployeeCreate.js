@@ -21,9 +21,10 @@ class EmployeeCreate extends Component {
     render() {
 
         let paramsFromEmployeeList = this.props.navigation.state.params;
-        alert(`${JSON.stringify(paramsFromEmployeeList)}`);
+        // alert(`${JSON.stringify(paramsFromEmployeeList)}`);
 
         return (
+            // {...this.props}: take all of the different props EmployeeCreate has been passed and forward them to EmployeeForm
             <View>
                 <EmployeeForm />
                 <CardSection>

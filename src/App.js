@@ -11,6 +11,7 @@ import reducers from './reducers';
 import LoginForm from './components/LoginForm';
 import EmployeeList from './components/EmployeeList';
 import EmployeeCreate from './components/EmployeeCreate';
+import EmployeeEdit from './components/EmployeeEdit';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
@@ -45,6 +46,9 @@ class App extends Component {
             },
             employeeCreate: {
                 screen: EmployeeCreate
+            },
+            employeeEdit: {
+                screen: EmployeeEdit,
             }},
         {
             initialRouteName: 'login'
