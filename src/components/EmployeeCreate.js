@@ -19,6 +19,10 @@ class EmployeeCreate extends Component {
     }
 
     render() {
+
+        let paramsFromEmployeeList = this.props.navigation.state.params;
+        alert(`${JSON.stringify(paramsFromEmployeeList)}`);
+
         return (
             <View>
                 <EmployeeForm />

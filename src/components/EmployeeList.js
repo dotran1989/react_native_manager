@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { ListView, FlatList, View, Text, Platform } from 'react-native';
 import Button from 'react-native-button';
 import * as actions from '../actions';
-import ListItem from './ListItem';
+// import ListItem from './ListItem';
+import FlatListItem from './FlatListItem';
 
 import EmployeeCreate from './EmployeeCreate';
 
@@ -32,6 +33,7 @@ class EmployeeList extends Component {
 
     constructor(props) {
         super(props);
+
     }
 
     componentWillMount() {
@@ -39,56 +41,33 @@ class EmployeeList extends Component {
         this.props.employeeFetch();
 
         console.log(`this.props: ${JSON.stringify(this.props)}`);
-        this._createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log(`componentWillReceiveProps`);
         console.log(`this.nextProps: ${JSON.stringify(nextProps)}`);
-        this._createDataSource(nextProps);
-    }
-
-    // r1 & r2 are two rows that are being compared, the old one and the new one. If they are not the same the rowHasChanged.
-    _createDataSource({ employees }) {
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        this.dataSource = ds.cloneWithRows(employees);
-    }
-
-    _renderRow(employee) {
-        return <ListItem employee={employee} />;
     }
 
     render() {
-        console.log(this.props);
-        return (
-            <ListView 
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this._renderRow}
-            />
-        );
-    }
 
-    /* render() {
+        const { employees } = this.props;
+        console.log(`render - employees ${JSON.stringify(employees)}`);
         return (
             <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}>
                 <FlatList
-                    data={}
+                    data={employees}
                     renderItem={({ item, index}) => {
                         return (
-                            <FlatListItem item={item} index={index}>
+                            <FlatListItem item={item} index={index} navigation={this.props.navigation}>
                             </FlatListItem>
                         );
                     }}
+                    keyExtractor={( item, index ) => item.name}
                 >
                 </FlatList>
-                <Text>AAA</Text>
             </View>
         );
-    } */
+    }
 }
 
 const styles = {
