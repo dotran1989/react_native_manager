@@ -38,6 +38,16 @@ class EmployeeEdit extends Component {
         Communications.text(phone, `Your upcoming shift is on ${shift}`);
     }
 
+    _onAccept() {
+        const { navigation } = this.props;
+
+        this.props.employeeDelete({ uid: this.props.navigation.state.params.uid, navigation });
+    }
+
+    _onDecline() {
+        this.setState({ showModal: false });
+    }
+
     render() {
         // alert(`item: ${JSON.stringify(this.props.navigation.state.params)}`);
         return (
@@ -66,6 +76,8 @@ class EmployeeEdit extends Component {
 
                 <Confirm
                     visible={this.state.showModal}
+                    onAccept={this._onAccept.bind(this)}
+                    onDecline={this._onDecline.bind(this)}
                 >
                     Are you sure you want to delete this?
                 </Confirm>

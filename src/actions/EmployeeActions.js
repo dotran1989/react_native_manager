@@ -62,6 +62,18 @@ export const resetForm = () => {
     };
 };
 
+export const employeeDelete = ({ uid, navigation }) => {
+    const { currentUser } = firebase.auth();
+
+    return () => {
+        firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+            .remove()
+            .then(() => {
+                navigation.goBack();
+            });
+    };
+}
+
 
 /* firebase.auth(): 
 {  
