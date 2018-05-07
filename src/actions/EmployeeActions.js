@@ -3,7 +3,8 @@ import {
     EMPLOYEE_UPDATE,
     EMPLOYEE_CREATE,
     EMPLOYEE_FETCH_SUCCESS,
-    EMPLOYEE_SAVE_SUCCESS
+    EMPLOYEE_SAVE_SUCCESS,
+    RESET_FORM
 } from './types';
 
 export const employeeUpdate = ({ prop, value }) => {
@@ -23,7 +24,7 @@ export const employeeCreate = ({ name, phone, shift, navigation }) => {
         firebase.database().ref(`/users/${currentUser.uid}/employees`)
         .push({ name, phone, shift })
         .then( () => {
-            dispatch({ type: EMPLOYEE_CREATE })
+            // dispatch({ type: EMPLOYEE_CREATE })
             navigation.goBack();
         });
     };
@@ -49,9 +50,15 @@ export const employeeSave = ({ name, phone, shift, uid, navigation}) => {
         firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
             .set({ name, phone, shift })
             .then(() => {
-                dispatch({ type: EMPLOYEE_SAVE_SUCCESS });
+                // dispatch({ type: EMPLOYEE_SAVE_SUCCESS });
                 navigation.goBack();
             });
+    };
+};
+
+export const resetForm = () => {
+    return {
+        type: RESET_FORM
     };
 };
 

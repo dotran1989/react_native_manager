@@ -12,6 +12,10 @@ class EmployeeCreate extends Component {
         return { headerTitle };
     }
 
+    componentWillMount() {
+        this.props.resetForm();
+    }
+
     _onButtonPress() {
         const { name, phone, shift, navigation } = this.props;
 
