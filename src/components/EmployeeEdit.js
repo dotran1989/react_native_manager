@@ -6,10 +6,13 @@ import Communications from 'react-native-communications';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection, Button, Confirm } from './common';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeEdit extends Component {
+
+    state = { showModal: false };
+
     static navigationOptions = ({navigation}) => {
         let headerTitle = 'Employee Edit';
 
@@ -40,16 +43,32 @@ class EmployeeEdit extends Component {
         return (
             <Card>
                 <EmployeeForm />
+
                 <CardSection>
                     <Button onPress={this._onButtonPress.bind(this)}>
                         Save Changes
                     </Button>
                 </CardSection>
+
                 <CardSection>
                     <Button onPress={this._onTextPress.bind(this)}>
                         Text Schedule
                     </Button>
                 </CardSection>
+
+                <CardSection>
+                    <Button
+                        onPress={() => this.setState({ showModal: !this.state.showModal })}
+                    >
+                        Delete
+                    </Button>
+                </CardSection>
+
+                <Confirm
+                    visible={this.state.showModal}
+                >
+                    Are you sure you want to delete this?
+                </Confirm>
             </Card>
         );
     }
