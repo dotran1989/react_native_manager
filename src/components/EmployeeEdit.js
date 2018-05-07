@@ -23,13 +23,13 @@ class EmployeeEdit extends Component {
     }
 
     _onButtonPress() {
-        const { name, phone, shift } = this.props;
+        const { name, phone, shift, navigation } = this.props;
 
-        this.props.employeeSave({ name, phone, shift, uid: this.props.navigation.state.params.uid });
+        this.props.employeeSave({ name, phone, shift, uid: this.props.navigation.state.params.uid, navigation });
     }
 
     render() {
-        alert(`item: ${JSON.stringify(this.props.navigation.state.params)}`);
+        // alert(`item: ${JSON.stringify(this.props.navigation.state.params)}`);
         return (
             <Card>
                 <EmployeeForm />
