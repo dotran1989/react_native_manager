@@ -74,7 +74,6 @@ export const employeeDelete = ({ uid, navigation }) => {
     };
 }
 
-
 /* firebase.auth(): 
 {  
     "apiKey":"AIzaSyDeOJu77LxkM4YUW3Syea2pV9Kti_PMX0U",

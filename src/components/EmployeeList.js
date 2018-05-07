@@ -13,22 +13,50 @@ import EmployeeCreate from './EmployeeCreate';
 
 class EmployeeList extends Component {
     static navigationOptions = ({ navigation }) => {
+
+        const { params = {} } = navigation.state;
+
+        console.log(`params: ${JSON.stringify(params)}`);
+
         let headerTitle = 'Employee List';
-        let headerLeft = null;
+        let headerTitleStyle = { 
+            alignSelf: 'center',
+            textAlign: 'center',
+            width: '65%',
+            color: 'white'
+        };
+        let headerStyle = {
+            backgroundColor: 'blue'
+        };
+        let headerLeft = (
+            <View>
+                <Button
+                    containerStyle={styles.btnSaveContainerStyle}
+                    style={styles.btnSaveStyle}
+                    onPress={() => {
+                        params.logOut();
+                    }}
+                >
+                    Logout
+                </Button>
+            </View>
+        );
         let headerRight = (
-            <Button
-                containerStyle={styles.btnSaveContainerStyle}
-                style={styles.btnSaveStyle}
-                onPress={() => {
-                    console.log('right');
-                    navigation.navigate('employeeCreate');
-                }}
-            >
-                Add
-            </Button>
+            <View>
+                <Button
+                    containerStyle={styles.btnSaveContainerStyle}
+                    style={styles.btnSaveStyle}
+                    onPress={() => {
+                        console.log('right');
+                        navigation.navigate('employeeCreate');
+                    }}
+                >
+                    Add
+                </Button>
+            </View>
         );
         
-        return { headerTitle, headerLeft, headerRight };
+        return { headerTitle, headerTitleStyle, headerStyle, headerLeft, headerRight };
     };
 
     constructor(props) {
@@ -36,22 +64,34 @@ class EmployeeList extends Component {
 
     }
 
+    _logOut() {
+        const { navigation } = this.props;
+
+        this.props.logOut({ navigation });
+    }
+
     componentWillMount() {
         console.log(`componentWillMount`);
         this.props.employeeFetch();
 
-        console.log(`this.props: ${JSON.stringify(this.props)}`);
+        // console.log(`this.props: ${JSON.stringify(this.props)}`);
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({ logOut: this._logOut.bind(this) });
     }
 
     componentWillReceiveProps(nextProps) {
         console.log(`componentWillReceiveProps`);
-        console.log(`this.nextProps: ${JSON.stringify(nextProps)}`);
+        // console.log(`this.nextProps: ${JSON.stringify(nextProps)}`);
     }
 
     render() {
 
         const { employees } = this.props;
-        console.log(`render - employees ${JSON.stringify(employees)}`);
+        // console.log(`render - employees ${JSON.stringify(employees)}`);
+        // console.log(`list render: ${JSON.stringify(this.props)}`);
+        console.log(this.props);
         return (
             <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}>
                 <FlatList
@@ -86,10 +126,10 @@ const styles = {
 
 const mapStateToProps = state => {
     const employees = _.map(state.employees, (val, uid) => { // convert object 'state.employees' to array
-        console.log(`val: ${JSON.stringify(val)} + id: ${JSON.stringify(uid)}`);
+        // console.log(`val: ${JSON.stringify(val)} + id: ${JSON.stringify(uid)}`);
         return {... val, uid }; // { shift: 'Monday', name: 's', id: '1j2ksj'}
     });
-    console.log(`employees: ${JSON.stringify(employees)}`);
+    // console.log(`employees: ${JSON.stringify(employees)}`);
     return { employees }; // {employees: employees} not 'return employees'
 };
 

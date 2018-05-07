@@ -3,7 +3,8 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    LOGOUT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -28,28 +29,31 @@ export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case EMAIL_CHANGED:
             NEW_STATE = {...state, email: action.payload};
-            console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
+            // console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
             return NEW_STATE;
 
         case PASSWORD_CHANGED:
             NEW_STATE = {...state, password: action.payload};
-            console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
+            // console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
             return NEW_STATE;
 
         case LOGIN_USER:
             NEW_STATE = {...state, loading: true, error: ''};
-            console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
+            // console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
             return NEW_STATE;
 
         case LOGIN_USER_SUCCESS:
             NEW_STATE = {...state, ...INITIAL_STATE, user: action.payload};
-            console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
+            // console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
             return NEW_STATE;
 
         case LOGIN_USER_FAIL:
             NEW_STATE = {...state, error: 'Authentication Failed', password: '', loading: false};
-            console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
+            // console.log(`NEW_STATE: ${JSON.stringify(NEW_STATE)}`);
             return NEW_STATE;
+
+        case LOGOUT:
+            return INITIAL_STATE;
 
         default:
             return state;

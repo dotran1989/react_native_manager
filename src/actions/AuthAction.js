@@ -4,7 +4,8 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    LOGOUT
 } from './types';
 import EmployeeList from '../components/EmployeeList';
 
@@ -45,6 +46,22 @@ export const loginUser = ({ email, password, navigation }) => {
         });
     }
 };
+
+export const logOut = ({ navigation }) => {
+    return (dispatch) => {
+        firebase.auth().signOut()
+            .then(() => {
+                dispatch({ type: LOGOUT });
+                navigation.goBack();
+            }, (error) => console.error('SignOut error', error));
+    }
+}
+
+/* firebase.auth().signOut().then(function() {
+    console.log('Signed Out');
+ }, function(error) {
+    console.error('Sign Out Error', error);
+ }); */
 
 /* var loginUser = exports.loginUser = function loginUser(_ref) {
     var email = _ref.email,

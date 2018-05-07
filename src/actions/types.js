@@ -11,3 +11,4 @@ export const EMPLOYEE_SAVE_SUCCESS = 'employee_save_success';
 export const EMPLOYEE_DELETE = 'employee_delete';
 
 export const RESET_FORM = 'reset_form';
+export const LOGOUT = 'logout';
