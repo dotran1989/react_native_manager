@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import Communications from 'react-native-communications';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -28,6 +29,12 @@ class EmployeeEdit extends Component {
         this.props.employeeSave({ name, phone, shift, uid: this.props.navigation.state.params.uid, navigation });
     }
 
+    _onTextPress() {
+        const { phone, shift } = this.props;
+
+        Communications.text(phone, `Your upcoming shift is on ${shift}`);
+    }
+
     render() {
         // alert(`item: ${JSON.stringify(this.props.navigation.state.params)}`);
         return (
@@ -36,6 +43,11 @@ class EmployeeEdit extends Component {
                 <CardSection>
                     <Button onPress={this._onButtonPress.bind(this)}>
                         Save Changes
+                    </Button>
+                </CardSection>
+                <CardSection>
+                    <Button onPress={this._onTextPress.bind(this)}>
+                        Text Schedule
                     </Button>
                 </CardSection>
             </Card>
