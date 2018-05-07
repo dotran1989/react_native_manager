@@ -22,8 +22,8 @@ class EmployeeList extends Component {
         let headerTitleStyle = { 
             alignSelf: 'center',
             textAlign: 'center',
-            width: '65%',
-            color: 'white'
+            color: 'white',
+            flex: 1
         };
         let headerStyle = {
             backgroundColor: 'blue'
